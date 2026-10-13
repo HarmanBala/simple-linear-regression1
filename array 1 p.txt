@@ -1,0 +1,368 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int choice;
+    int max,n,pos,value;
+    cout<<"enter the size of the array:";
+    cin>>max;
+    int arr[max];
+    cout<<"\n size of the array:"<<max;
+    cout<<"\n how many elements you want in the array?";
+    cin>>n;
+    if(n<=max)
+    {
+        for(int i=0; i<n; i++)
+        {
+            cout<<"enter the elements";
+            cin>>value;
+            arr[i]=value;
+        }
+        cout<<"your array is:";
+        for(int i=0; i<n; i++)
+        {
+            cout<<arr[i]<<" ";
+        }
+        char again;
+        do
+        {
+            cout<<"\n1.insert element in an array at a given position.";
+            cout<<"\n2.delete element at a given position.";
+            cout<<"\n3.insert element after a given value.";
+            cout<<"\n4.insert element before a given value.";
+            cout<<"\n5.delete after a given value.";
+            cout<<"\n6.delete before a given value.";
+            cout<<"\n7.display the array.";
+            cout<<"\nenter your choice";
+            cin>>choice;
+            switch(choice)
+            {
+            case 1:
+            {
+                char again;
+
+                do
+                {
+                    if(n < max)
+                    {
+                        cout << "enter the position of new element: ";
+                        cin >> pos;
+
+                        if(pos >= 0 && pos <= n)
+                        {
+                            cout << "enter the new value: ";
+                            cin >> value;
+
+                            for(int i = n - 1; i >= pos; i--)
+                            {
+                                arr[i + 1] = arr[i];
+                            }
+
+                            arr[pos] = value;
+                            n++;
+
+                            cout << "your array is: ";
+
+                            for(int i = 0; i < n; i++)
+                            {
+                                cout << arr[i] << " ";
+                            }
+
+                            cout << endl;
+                        }
+                        else
+                        {
+                            cout << "index is out of range";
+                        }
+                    }
+                    else
+                    {
+                        cout << "array is already full";
+                    }
+
+                    cout << "\n do you want to insert again? (y/n): ";
+                    cin >> again;
+
+                }
+                while(again == 'y');
+
+                break;
+            }
+            case 3:
+            {
+                char again;
+
+                do
+                {
+                    int my_ele_aft, pos, value;
+
+                    cout << "enter the value after which you want to insert a new element: ";
+                    cin >> my_ele_aft;
+
+                    bool found = false;
+
+                    for(int i = 0; i < n; i++)
+                    {
+                        if(arr[i] == my_ele_aft)
+                        {
+                            pos = i;
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if(found == true)
+                    {
+                        cout << "element found at position: " << pos << endl;
+
+                        if(n < max)
+                        {
+                            cout << "enter the new value: ";
+                            cin >> value;
+
+                            for(int i = n - 1; i > pos; i--)
+                            {
+                                arr[i + 1] = arr[i];
+                            }
+
+                            arr[pos + 1] = value;
+                            n++;
+
+                            cout << "your array is: ";
+
+                            for(int i = 0; i < n; i++)
+                            {
+                                cout << arr[i] << " ";
+                            }
+                        }
+                        else
+                        {
+                            cout << "array is full";
+                        }
+                    }
+                    else
+                    {
+                        cout << "element is not present that you entered";
+                    }
+
+                    cout << "\n do you want to insert again? (y/n): ";
+                    cin >> again;
+
+                }
+                while(again == 'y');
+
+                break;
+            }
+
+            case 4:
+            {
+
+                char again;
+                do
+                {
+                    int my_ele_before,pos,new_value;
+                    bool found=false;
+                    cout<<"enter the value before you want to insert:";
+                    cin>>my_ele_before;
+                    if(n<max)
+                    {
+                        for(int i=0; i<n; i++)
+                        {
+                            if(arr[i]==my_ele_before)
+                            {
+                                pos=i;
+                                found=true;
+                                break;
+                            }
+                        }
+                        if (found==true)
+                        {
+                            cout<<"enter the new value:";
+                            cin>>new_value;
+                            for(int i=n-1; i>=pos; i--)
+                            {
+                                arr[i+1]=arr[i];
+
+                            }
+                            arr[pos]=new_value;
+                            n++;
+                            for(int i=0; i<n; i++)
+                            {
+
+                                cout<<arr[i]<<" ";
+                            }
+                        }
+                        else
+                        {
+                            cout<<"element you entered is not present";
+                        }
+                    }
+                    else
+                    {
+                        cout<<"array is full";
+
+                    }
+                    cout<<"do you want to insert again?y/n";
+                    cin>>again;
+                }
+                while(again=='y');
+                break;
+            }
+            case 2:
+            {
+                char again;
+                do
+                {
+                    int del_pos;
+                    cout<<"enter the deletion position:";
+                    cin>>del_pos;
+                    if(del_pos>=0 and del_pos<n)
+                    {
+
+                        for(int i=del_pos; i<n-1; i++)
+                        {
+                            arr[i]=arr[i+1];
+                        }
+                        n--;
+                        for(int i=0; i<n; i++)
+                        {
+                            cout<<arr[i]<<" ";
+                        }
+
+                    }
+                    else
+                    {
+                        cout<<"del pos is out of range";
+                    }
+                    cout<<"\n do you want to delete again y/n?";
+                    cin>>again;
+                }
+                while (again=='y');
+                break;
+
+            }
+            case 5:
+            {
+                char again;
+
+                do
+                {
+                    int del_after_this, pos;
+                    bool found = false;
+
+                    cout << "enter the element after which you want to delete: ";
+                    cin >> del_after_this;
+
+                    for(int i=0; i<n; i++)
+                    {
+                        if(arr[i] == del_after_this)
+                        {
+                            pos = i;
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if(found == true)
+                    {
+                        if(pos == n-1)
+                        {
+                            cout << "there is no element after your element";
+                        }
+                        else
+                        {
+                            for(int i=pos+1; i<n-1; i++)
+                            {
+                                arr[i] = arr[i+1];
+                            }
+
+                            n--;
+
+                            for(int i=0; i<n; i++)
+                            {
+                                cout << arr[i] << " ";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        cout << "element is not present";
+                    }
+
+                    cout << "\ndo you want to delete again? ";
+                    cin >> again;
+
+                }
+                while(again == 'y');
+
+                break;
+            }
+            case 6:
+                char again;
+                do
+                {
+                    int del_bef_this;
+                    bool found=false;
+                    cout<<"enter the element before you want to delete:";
+                    cin>>del_bef_this;
+                    for(int i=0; i<n; i++)
+                    {
+                        if(arr[i]==del_bef_this)
+                        {
+                            pos=i;
+                            found=true;
+                            break;
+                        }
+
+                    }
+                    if(found==true)
+                    {
+                        if(pos==0)
+                        {
+                            cout<<"there is no element before this";
+
+                        }
+                        else
+                        {
+                            for(int i=pos-1; i<n-1; i++)
+                            {
+                                arr[i]=arr[i+1];
+                            }
+                            n--;
+                            for(int i=0; i<n; i++)
+                            {
+                                cout<<arr[i]<<" ";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        cout<<"element not exist";
+                    }
+
+                    cout<<"do you want to delete again?";
+                    cin>>again;
+                }
+                while(again=='y');
+                break;
+
+            case 7:
+                for(int i=0; i<n; i++)
+                {
+                    cout<<arr[i]<<" ";
+                }
+                break;
+            }
+            cout << "\nDo you want to perform another operation? (y/n): ";
+            cin >> again;
+
+        }
+        while(again == 'y');
+
+    }
+    return 0;
+
+}
+
